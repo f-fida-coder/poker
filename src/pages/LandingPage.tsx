@@ -2,46 +2,49 @@ import { motion } from 'framer-motion';
 import { Sparkles, Users, Trophy, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import logo from '../images/logo.jpeg';
+import logo from '../images/logo.png';
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen overflow-hidden relative">
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Logo positioned on the left */}
+      <motion.div
+        initial={{ opacity: 0, x: -100 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="fixed top-8 left-8 z-20"
+      >
+        <motion.img 
+          src={logo} 
+          alt="Neuro Poker For Fun" 
+          className="h-20 md:h-24 w-auto rounded-2xl shadow-chunky-3d border-4 border-white"
+          animate={{
+            scale: [1, 1.05, 1],
+          }}
+          transition={{
+            duration: 3,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
+        />
+      </motion.div>
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 pt-32">
         <motion.div
           initial={{ opacity: 0, y: -50 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           className="text-center mb-16"
         >
-          <motion.div
-            animate={{
-              scale: [1, 1.05, 1],
-              y: [0, -10, 0],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: 'easeInOut',
-            }}
-            className="inline-block mb-8"
-          >
-            <img 
-              src={logo} 
-              alt="Neuro Poker For Fun" 
-              className="h-40 md:h-48 w-auto mx-auto rounded-3xl shadow-chunky-3d"
-            />
-          </motion.div>
-
-          <h1 className="text-7xl md:text-8xl font-display font-black mb-6 neon-text">
+          <h1 className="text-7xl md:text-8xl font-display font-black mb-6 text-white drop-shadow-[0_6px_8px_rgba(0,0,0,0.8)]">
             NEURO POKER
           </h1>
-          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 bg-neon-gradient bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-display font-bold mb-4 text-yellow-300 drop-shadow-[0_4px_6px_rgba(0,0,0,0.8)]">
             FOR FUN
           </h2>
-          <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          <p className="text-xl text-white max-w-2xl mx-auto drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
             Experience the ultimate online poker with psychedelic neon vibes. Play with friends, join tournaments, and dominate the tables.
           </p>
         </motion.div>
