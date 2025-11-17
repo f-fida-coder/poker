@@ -2,252 +2,268 @@ import { motion } from 'framer-motion';
 import { Sparkles, Users, Trophy, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
-import logo from '../images/logo.png';
+import logo from '../images/whitelogo.png';
+import backgroundImg from '../images/background.jpg';
 
 export default function LandingPage() {
   const navigate = useNavigate();
 
   return (
     <div className="min-h-screen overflow-hidden relative">
-      {/* Floating decorative shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Background Image with Transparency */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          opacity: 0.6,
+        }}
+      />
+      
+      {/* White overlay for better readability */}
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px]" />
+      
+      {/* Subtle floating shapes with brand colors */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
         <motion.div
-          className="absolute top-20 left-10 w-16 h-16 bg-pink-400 rounded-full opacity-30"
-          animate={{ y: [0, -20, 0], rotate: [0, 180, 360] }}
-          transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-20 left-10 w-32 h-32 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(226, 152, 2, 0.15) 0%, transparent 70%)' }}
+          animate={{ y: [0, -30, 0], scale: [1, 1.1, 1] }}
+          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute top-40 right-20 w-12 h-12 bg-purple-400 rounded-lg opacity-30"
-          animate={{ y: [0, 20, 0], rotate: [0, -180, -360] }}
-          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute top-1/3 right-20 w-40 h-40 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(30, 104, 132, 0.12) 0%, transparent 70%)' }}
+          animate={{ y: [0, 40, 0], scale: [1, 1.15, 1] }}
+          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-40 left-1/4 w-20 h-20 bg-yellow-300 rounded-full opacity-20"
-          animate={{ y: [0, -30, 0], x: [0, 10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-40 left-1/4 w-48 h-48 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(85, 110, 0, 0.1) 0%, transparent 70%)' }}
+          animate={{ y: [0, -35, 0], x: [0, 20, 0] }}
+          transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute bottom-20 right-1/3 w-14 h-14 bg-cyan-400 rounded-lg opacity-30"
-          animate={{ y: [0, 15, 0], rotate: [0, 90, 0] }}
-          transition={{ duration: 4.5, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-20 right-1/3 w-36 h-36 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(191, 70, 1, 0.12) 0%, transparent 70%)' }}
+          animate={{ y: [0, 25, 0], scale: [1, 1.2, 1] }}
+          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
         />
       </div>
 
-      {/* Logo positioned on the left - mobile responsive */}
-      <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        animate={{ opacity: 1, x: 0 }}
+      {/* Header with Logo */}
+      <motion.header
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="fixed top-4 left-4 md:top-8 md:left-8 z-20"
+        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md shadow-lg"
+        style={{
+          background: 'linear-gradient(to right, rgba(226, 152, 2, 0.95), rgba(30, 104, 132, 0.95))'
+        }}
       >
-        <motion.div
-          className="bg-white rounded-2xl md:rounded-3xl p-2 md:p-3 border-4 md:border-6 border-[#2C2416] shadow-[0_6px_0_#2C2416,0_8px_16px_rgba(0,0,0,0.3)]"
-          whileHover={{ y: -4, scale: 1.05 }}
-          whileTap={{ y: 0 }}
-        >
-          <motion.img 
-            src={logo} 
-            alt="Neuro Poker For Fun" 
-            className="h-12 sm:h-16 md:h-20 w-auto"
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-          />
-        </motion.div>
-      </motion.div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <motion.div
+              whileHover={{ scale: 1.05 }}
+              className="cursor-pointer"
+            >
+              <img 
+                src={logo} 
+                alt="Neuro Poker For Fun" 
+                className="h-14 sm:h-16 md:h-20 w-auto drop-shadow-lg"
+              />
+            </motion.div>
+            
+            <nav className="hidden md:flex space-x-8">
+              <a href="#features" className="text-white hover:text-[#1b6831] font-bold transition-colors text-lg">Features</a>
+              <a href="#about" className="text-white hover:text-[#1b6831] font-bold transition-colors text-lg">About</a>
+              <a href="#contact" className="text-white hover:text-[#1b6831] font-bold transition-colors text-lg">Contact</a>
+            </nav>
+          </div>
+        </div>
+      </motion.header>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pt-24 sm:pt-32 md:pt-40">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32 sm:pt-36 md:pt-44 pb-16">
         {/* Hero Section */}
         <motion.div
-          initial={{ opacity: 0, y: -50 }}
+          initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="text-center mb-12 sm:mb-16 md:mb-20"
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-center mb-16 sm:mb-20 md:mb-24"
         >
           <motion.h1 
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-black mb-4 sm:mb-6 md:mb-8"
-            style={{
-              color: '#FF6B9D',
-              textShadow: '0 6px 0 #CC5680, 0 8px 20px rgba(0,0,0,0.3)',
-              WebkitTextStroke: '3px #2C2416',
-              paintOrder: 'stroke fill',
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-black mb-6 sm:mb-8"
+            style={{ 
+              color: '#e29802',
+              textShadow: '3px 3px 6px rgba(0,0,0,0.2), 0 0 40px rgba(226, 152, 2, 0.3)'
             }}
-            animate={{ 
-              textShadow: [
-                '0 6px 0 #CC5680, 0 8px 20px rgba(0,0,0,0.3)',
-                '0 8px 0 #CC5680, 0 10px 24px rgba(0,0,0,0.4)',
-                '0 6px 0 #CC5680, 0 8px 20px rgba(0,0,0,0.3)',
-              ]
-            }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
           >
             NEURO POKER
           </motion.h1>
           
           <motion.h2 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-4 sm:mb-6"
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
-            style={{
-              color: '#FFD700',
-              textShadow: '0 4px 0 #CC9A00, 0 6px 16px rgba(0,0,0,0.3)',
-              WebkitTextStroke: '2px #2C2416',
-              paintOrder: 'stroke fill',
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 sm:mb-10"
+            style={{ 
+              color: '#1b6831',
+              textShadow: '2px 2px 4px rgba(0,0,0,0.15)'
             }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
           >
-            FOR FUN! 🎉
+            FOR FUN
           </motion.h2>
           
           <motion.p 
-            className="text-base sm:text-lg md:text-xl lg:text-2xl text-[#2C2416] font-semibold max-w-2xl mx-auto px-4 leading-relaxed"
+            className="text-lg sm:text-xl md:text-2xl font-semibold max-w-3xl mx-auto px-4 leading-relaxed mb-12"
+            style={{ color: '#1e6884' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 0.5 }}
+            transition={{ delay: 0.8, duration: 0.6 }}
           >
-            Experience the ultimate online poker with psychedelic vibes! 🌈 Play with friends, join tournaments, and dominate the tables! 🃏✨
+            Experience the ultimate online poker platform. Play with friends, join tournaments, and dominate the tables with professional gameplay.
           </motion.p>
-        </motion.div>
 
-        {/* CTA Buttons - Mobile Responsive */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-stretch sm:items-center mb-12 sm:mb-16 md:mb-24 px-4"
-        >
+          {/* CTA Buttons */}
           <motion.div
-            whileHover={{ y: -6, scale: 1.05 }}
-            whileTap={{ y: 2 }}
-            className="w-full sm:w-auto"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 1 }}
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-stretch sm:items-center px-4"
           >
-            <Button
-              size="lg"
+            <motion.button
+              whileHover={{ scale: 1.08, y: -4 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => navigate('/lobby')}
-              className="w-full sm:w-auto text-xl sm:text-2xl px-8 sm:px-12 md:px-16 py-5 sm:py-6 md:py-7 shadow-[0_8px_0_#CC9A00,0_10px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_10px_0_#CC9A00,0_12px_24px_rgba(0,0,0,0.5)] active:shadow-[0_4px_0_#CC9A00,0_6px_12px_rgba(0,0,0,0.3)]"
+              className="px-10 sm:px-12 md:px-16 py-4 sm:py-5 text-xl sm:text-2xl font-bold rounded-2xl text-white transition-all duration-300 shadow-xl hover:shadow-2xl"
+              style={{ 
+                background: 'linear-gradient(135deg, #e29802 0%, #bf4601 100%)',
+                boxShadow: '0 8px 25px rgba(226, 152, 2, 0.4)'
+              }}
             >
-              🎮 Create Table
-            </Button>
-          </motion.div>
-          <motion.div
-            whileHover={{ y: -6, scale: 1.05 }}
-            whileTap={{ y: 2 }}
-            className="w-full sm:w-auto"
-          >
-            <Button
-              size="lg"
-              variant="secondary"
+              Create Table
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.08, y: -4 }}
+              whileTap={{ scale: 0.98 }}
               onClick={() => navigate('/lobby')}
-              className="w-full sm:w-auto text-xl sm:text-2xl px-8 sm:px-12 md:px-16 py-5 sm:py-6 md:py-7 bg-[#B4E7FF] hover:bg-[#9DD9F0] border-6 border-[#2C2416] shadow-[0_8px_0_#3691A7,0_10px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_10px_0_#3691A7,0_12px_24px_rgba(0,0,0,0.5)] active:shadow-[0_4px_0_#3691A7,0_6px_12px_rgba(0,0,0,0.3)]"
+              className="px-10 sm:px-12 md:px-16 py-4 sm:py-5 text-xl sm:text-2xl font-bold rounded-2xl text-white transition-all duration-300 shadow-xl hover:shadow-2xl"
+              style={{ 
+                background: 'linear-gradient(135deg, #1e6884 0%, #1b6831 100%)',
+                boxShadow: '0 8px 25px rgba(30, 104, 132, 0.4)'
+              }}
             >
-              🚀 Join Table
-            </Button>
+              Join Table
+            </motion.button>
           </motion.div>
         </motion.div>
 
-        {/* Feature Cards - Cartoon Style */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16 md:mb-24 px-2">
+        {/* Feature Cards */}
+        <div id="features" className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 mb-16 sm:mb-20 md:mb-24">
           {[
             {
               icon: Users,
               title: 'Multiplayer Rooms',
               description: 'Create private tables or join public games with players worldwide',
-              bgColor: 'bg-[#B4A7FF]',
-              shadowColor: '#8B7FCC',
-              emoji: '👥',
+              gradient: 'linear-gradient(135deg, rgba(30, 104, 132, 0.15) 0%, rgba(27, 104, 49, 0.15) 100%)',
+              iconBg: 'linear-gradient(135deg, #1e6884 0%, #1b6831 100%)',
+              titleColor: '#1e6884',
             },
             {
               icon: Trophy,
               title: 'Epic Tournaments',
               description: 'Compete in daily tournaments with massive prize pools',
-              bgColor: 'bg-[#FFD700]',
-              shadowColor: '#CC9A00',
-              emoji: '🏆',
+              gradient: 'linear-gradient(135deg, rgba(226, 152, 2, 0.15) 0%, rgba(191, 70, 1, 0.15) 100%)',
+              iconBg: 'linear-gradient(135deg, #e29802 0%, #bf4601 100%)',
+              titleColor: '#e29802',
             },
             {
               icon: Zap,
               title: 'Lightning Fast',
               description: 'Smooth gameplay with real-time updates and zero lag',
-              bgColor: 'bg-[#FF6B9D]',
-              shadowColor: '#CC5680',
-              emoji: '⚡',
+              gradient: 'linear-gradient(135deg, rgba(191, 70, 1, 0.15) 0%, rgba(85, 110, 0, 0.15) 100%)',
+              iconBg: 'linear-gradient(135deg, #bf4601 0%, #556e00 100%)',
+              titleColor: '#bf4601',
             },
           ].map((feature, index) => (
             <motion.div
               key={feature.title}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 + index * 0.15 }}
-              whileHover={{ y: -10, scale: 1.03 }}
-              className={`${feature.bgColor} rounded-3xl sm:rounded-[2.5rem] p-6 sm:p-8 md:p-10 border-5 sm:border-6 border-[#2C2416] transition-all duration-300 cursor-pointer`}
-              style={{
-                boxShadow: `0 8px 0 ${feature.shadowColor}, 0 10px 24px rgba(0,0,0,0.4)`
+              transition={{ duration: 0.6, delay: 1.2 + index * 0.15 }}
+              whileHover={{ y: -12, scale: 1.03 }}
+              className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 sm:p-10 border-2 transition-all duration-300 shadow-xl hover:shadow-2xl"
+              style={{ 
+                background: feature.gradient,
+                borderColor: feature.titleColor,
+                boxShadow: `0 10px 30px rgba(0,0,0,0.1), 0 0 0 1px ${feature.titleColor}40`
               }}
             >
               <motion.div 
-                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl sm:rounded-3xl bg-white border-4 sm:border-5 border-[#2C2416] flex items-center justify-center mb-4 sm:mb-6 mx-auto shadow-[0_4px_0_#2C2416]"
-                whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
-                transition={{ duration: 0.5 }}
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg"
+                style={{ background: feature.iconBg }}
+                whileHover={{ rotate: 360, scale: 1.1 }}
+                transition={{ duration: 0.6 }}
               >
-                <span className="text-3xl sm:text-4xl">{feature.emoji}</span>
+                <feature.icon className="w-8 h-8 sm:w-10 sm:h-10 text-white" strokeWidth={2.5} />
               </motion.div>
-              <h3 className="text-2xl sm:text-2xl md:text-3xl font-display font-black mb-3 sm:mb-4 text-center text-[#2C2416]">
+              <h3 className="text-2xl sm:text-3xl font-display font-bold mb-4 text-center" style={{ color: feature.titleColor }}>
                 {feature.title}
               </h3>
-              <p className="text-[#2C2416] text-center text-base sm:text-lg font-semibold leading-relaxed">
+              <p className="text-gray-800 text-center text-base sm:text-lg leading-relaxed font-medium">
                 {feature.description}
               </p>
             </motion.div>
           ))}
         </div>
 
-        {/* CTA Section - Cartoon Style */}
+        {/* CTA Section */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
+          initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.8 }}
-          className="relative min-h-[300px] sm:h-96 rounded-3xl sm:rounded-[3rem] overflow-hidden bg-gradient-to-br from-[#FF6B9D] via-[#B4A7FF] to-[#FFD700] border-6 border-[#2C2416] shadow-[0_12px_0_#2C2416,0_16px_32px_rgba(0,0,0,0.5)] mb-8 sm:mb-12 mx-2"
+          transition={{ duration: 0.8, delay: 1.8 }}
+          className="relative rounded-3xl overflow-hidden shadow-2xl"
+          style={{
+            background: 'linear-gradient(135deg, rgba(226, 152, 2, 0.2) 0%, rgba(30, 104, 132, 0.2) 33%, rgba(191, 70, 1, 0.2) 66%, rgba(27, 104, 49, 0.2) 100%)',
+            backdropFilter: 'blur(20px)',
+            border: '2px solid rgba(226, 152, 2, 0.3)',
+          }}
         >
-          <div className="absolute inset-0 flex items-center justify-center p-6 sm:p-8">
-            <div className="text-center relative z-10">
-              <motion.div
-                animate={{
-                  rotate: [0, 360],
-                  scale: [1, 1.2, 1],
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: 'easeInOut',
-                }}
-                className="text-6xl sm:text-7xl md:text-8xl mb-4 sm:mb-6"
-              >
-                🎰
-              </motion.div>
-              <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-black mb-3 sm:mb-4 md:mb-6 text-white"
-                style={{
-                  textShadow: '0 6px 0 #2C2416, 0 8px 20px rgba(0,0,0,0.5)',
-                  WebkitTextStroke: '3px #2C2416',
-                  paintOrder: 'stroke fill',
-                }}
-              >
-                Ready to Play?
-              </h3>
-              <p className="text-lg sm:text-xl md:text-2xl text-[#2C2416] font-bold mb-6 sm:mb-8 max-w-md mx-auto px-4">
-                Join thousands of players and start your poker journey today! 🌟
-              </p>
-              <motion.div 
-                whileHover={{ y: -6, scale: 1.05 }}
-                whileTap={{ y: 2 }}
-              >
-                <Button 
-                  size="lg" 
-                  onClick={() => navigate('/auth/signin')} 
-                  className="text-xl sm:text-2xl px-10 sm:px-12 md:px-16 py-5 sm:py-6 md:py-7 bg-white text-[#2C2416] hover:bg-gray-100 border-6 border-[#2C2416] shadow-[0_8px_0_#2C2416,0_10px_24px_rgba(0,0,0,0.5)] hover:shadow-[0_10px_0_#2C2416,0_12px_28px_rgba(0,0,0,0.6)]"
-                >
-                  Get Started Now! 🎯
-                </Button>
-              </motion.div>
-            </div>
+          <div className="relative z-10 py-16 sm:py-20 md:py-24 px-6 sm:px-8 text-center">
+            <motion.div
+              animate={{ 
+                scale: [1, 1.1, 1],
+                rotate: [0, 180, 360]
+              }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="mb-8"
+            >
+              <Sparkles className="w-16 h-16 sm:w-20 sm:h-20 mx-auto drop-shadow-lg" style={{ color: '#e29802' }} />
+            </motion.div>
+            <h3 className="text-4xl sm:text-5xl md:text-6xl font-display font-black mb-6 sm:mb-8" 
+              style={{ 
+                color: '#e29802',
+                textShadow: '2px 2px 4px rgba(0,0,0,0.2), 0 0 30px rgba(226, 152, 2, 0.3)'
+              }}>
+              Ready to Play?
+            </h3>
+            <p className="text-xl sm:text-2xl md:text-3xl font-bold mb-8 sm:mb-10 max-w-2xl mx-auto" style={{ color: '#1e6884' }}>
+              Join thousands of players and start your poker journey today
+            </p>
+            <motion.button
+              whileHover={{ scale: 1.08, y: -6 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => navigate('/auth/signin')}
+              className="px-12 sm:px-16 md:px-20 py-5 sm:py-6 md:py-7 text-2xl sm:text-3xl font-bold rounded-2xl text-white transition-all duration-300 shadow-2xl"
+              style={{ 
+                background: 'linear-gradient(135deg, #1b6831 0%, #556e00 100%)',
+                boxShadow: '0 12px 30px rgba(27, 104, 49, 0.5)'
+              }}
+            >
+              Get Started Now
+            </motion.button>
           </div>
         </motion.div>
       </div>
