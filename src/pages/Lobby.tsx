@@ -8,7 +8,7 @@ import Input from '../components/Input';
 import { mockRooms, mockClubs, mockTournaments } from '../data/mockData';
 import { useStore } from '../store/useStore';
 import logo from '../images/logo.jpeg';
-import backgroundImg from '../images/background.JPG';
+import backgroundImg from '../images/background.jpg';
 
 export default function Lobby() {
   const navigate = useNavigate();

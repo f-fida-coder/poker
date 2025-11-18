@@ -8,7 +8,7 @@ import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import { useStore } from '../store/useStore';
 import { avatarOptions } from '../data/mockData';
 import logo from '../images/logo.jpeg';
-import backgroundImg from '../images/background.JPG';
+import backgroundImg from '../images/background.jpg';
 
 export default function SignIn() {
   const navigate = useNavigate();

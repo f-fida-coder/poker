@@ -9,7 +9,7 @@ import ChatPanel from '../components/PokerTable/ChatPanel';
 import Button from '../components/Button';
 import { mockPlayers } from '../data/mockData';
 import { useStore } from '../store/useStore';
-import backgroundImg from '../images/background.JPG';
+import backgroundImg from '../images/background.jpg';
 
 export default function PokerTable() {
   const { id } = useParams();
