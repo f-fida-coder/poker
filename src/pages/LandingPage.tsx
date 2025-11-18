@@ -1,9 +1,8 @@
 import { motion } from 'framer-motion';
 import { Sparkles, Users, Trophy, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../components/Button';
 import logo from '../images/whitelogo.png';
-import backgroundImg from '../images/background.jpg';
+import backgroundImg from '../images/background.JPG';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -55,9 +54,9 @@ export default function LandingPage() {
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md shadow-lg"
+        className="fixed top-0 left-0 right-0 z-50 shadow-lg"
         style={{
-          background: 'linear-gradient(to right, rgba(226, 152, 2, 0.95), rgba(30, 104, 132, 0.95))'
+          background: 'transparent'
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -74,9 +73,9 @@ export default function LandingPage() {
             </motion.div>
             
             <nav className="hidden md:flex space-x-8">
-              <a href="#features" className="text-white hover:text-[#1b6831] font-bold transition-colors text-lg">Features</a>
-              <a href="#about" className="text-white hover:text-[#1b6831] font-bold transition-colors text-lg">About</a>
-              <a href="#contact" className="text-white hover:text-[#1b6831] font-bold transition-colors text-lg">Contact</a>
+              <a href="#features" className="text-[#1e6884] hover:text-[#e29802] font-bold transition-colors text-lg drop-shadow-md">Features</a>
+              <a href="#about" className="text-[#1e6884] hover:text-[#e29802] font-bold transition-colors text-lg drop-shadow-md">About</a>
+              <a href="#contact" className="text-[#1e6884] hover:text-[#e29802] font-bold transition-colors text-lg drop-shadow-md">Contact</a>
             </nav>
           </div>
         </div>
