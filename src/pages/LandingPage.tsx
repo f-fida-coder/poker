@@ -3,6 +3,7 @@ import { Sparkles, Users, Trophy, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../images/whitelogo.png';
 import backgroundImg from '../images/background.jpg';
+import character3d from '../images/3d1.png';
 
 export default function LandingPage() {
   const navigate = useNavigate();
@@ -87,8 +88,36 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-center mb-16 sm:mb-20 md:mb-24"
+          className="text-center mb-16 sm:mb-20 md:mb-24 relative"
         >
+          {/* 3D Character - Floating on the right side */}
+          <motion.div
+            initial={{ opacity: 0, x: 100, rotate: -10 }}
+            animate={{ 
+              opacity: 1, 
+              x: 0,
+              y: [0, -20, 0],
+              rotate: [-5, 5, -5]
+            }}
+            transition={{
+              opacity: { duration: 0.8, delay: 0.5 },
+              x: { duration: 0.8, delay: 0.5 },
+              y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
+              rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="hidden lg:block absolute -right-8 xl:-right-16 top-0 w-64 xl:w-80 z-20"
+            whileHover={{ scale: 1.1, rotate: 0 }}
+          >
+            <img 
+              src={character3d} 
+              alt="Poker Character" 
+              className="w-full h-auto drop-shadow-2xl"
+              style={{
+                filter: 'drop-shadow(0 10px 30px rgba(0,0,0,0.3))'
+              }}
+            />
+          </motion.div>
+
           <motion.h1 
             className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-black mb-6 sm:mb-8"
             style={{ 
