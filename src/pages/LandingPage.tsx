@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { Sparkles, Users, Trophy, Zap } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../images/whitelogo.png';
-import backgroundImg from '../images/background.JPG';
+import backgroundImg from '../images/background.jpg';
 
 export default function LandingPage() {
   const navigate = useNavigate();
