@@ -122,7 +122,7 @@ export default function LandingPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.8, duration: 0.6 }}
           >
-            Experience the ultimate online poker platform. Play with friends, join tournaments, and dominate the tables with professional gameplay.
+            Experience the ultimate online poker platform. Play with friends, join tournaments and dominate the tables with professional gameplay.
           </motion.p>
 
           {/* CTA Buttons */}
