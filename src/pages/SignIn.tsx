@@ -6,6 +6,7 @@ import Input from '../components/Input';
 import Card from '../components/Card';
 import { useStore } from '../store/useStore';
 import logo from '../images/logo.jpeg';
+import backgroundImg from '../images/background.JPG';
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -38,7 +39,19 @@ export default function SignIn() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen flex items-center justify-center px-4 relative">
+      {/* Background Image with Transparency */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          opacity: 0.6,
+        }}
+      />
+      
+      {/* White overlay for better readability */}
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px]" />
+      
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}

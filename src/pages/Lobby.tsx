@@ -8,6 +8,7 @@ import Input from '../components/Input';
 import { mockRooms, mockClubs, mockTournaments } from '../data/mockData';
 import { useStore } from '../store/useStore';
 import logo from '../images/logo.jpeg';
+import backgroundImg from '../images/background.JPG';
 
 export default function Lobby() {
   const navigate = useNavigate();
@@ -22,8 +23,20 @@ export default function Lobby() {
   ];
 
   return (
-    <div className="min-h-screen">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <div className="min-h-screen relative">
+      {/* Background Image with Transparency */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          opacity: 0.6,
+        }}
+      />
+      
+      {/* White overlay for better readability */}
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px]" />
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="flex items-center justify-center mb-6">
           <img src={logo} alt="Neuro Poker" className="h-20 w-auto rounded-2xl shadow-chunky-3d" />
         </div>
@@ -51,7 +64,7 @@ export default function Lobby() {
         </div>
 
         <div className="flex flex-col md:flex-row gap-4 mb-8">
-          <div className="flex gap-2 cartoon-panel-gold p-2">
+          <div className="flex flex-col sm:flex-row gap-2 cartoon-panel-gold p-2 w-full md:w-auto">
             {tabs.map((tab) => (
               <motion.button
                 key={tab.id}
@@ -59,8 +72,8 @@ export default function Lobby() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setActiveTab(tab.id as any)}
                 className={`
-                  flex items-center gap-2 px-6 py-3 rounded-chunky font-display font-black
-                  transition-all duration-300 border-4 border-neon-text
+                  flex items-center justify-center gap-2 px-6 py-3 rounded-chunky font-display font-black
+                  transition-all duration-300 border-4 border-neon-text w-full sm:w-auto
                   ${
                     activeTab === tab.id
                       ? 'bg-white text-neon-text shadow-chunky-3d'

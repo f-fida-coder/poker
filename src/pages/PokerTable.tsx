@@ -9,6 +9,7 @@ import ChatPanel from '../components/PokerTable/ChatPanel';
 import Button from '../components/Button';
 import { mockPlayers } from '../data/mockData';
 import { useStore } from '../store/useStore';
+import backgroundImg from '../images/background.JPG';
 
 export default function PokerTable() {
   const { id } = useParams();
@@ -97,7 +98,20 @@ export default function PokerTable() {
   };
 
   return (
-    <div className="min-h-screen overflow-hidden relative">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Background Image with Transparency */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          opacity: 0.6,
+        }}
+      />
+      
+      {/* White overlay for better readability */}
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px]" />
+      
+      <div className="relative z-10">
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
         <div className="flex gap-2">
           <Button variant="ghost" onClick={() => navigate('/lobby')} size="sm">
@@ -201,6 +215,7 @@ export default function PokerTable() {
       />
 
       <ChatPanel isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
+      </div>
     </div>
   );
 }
