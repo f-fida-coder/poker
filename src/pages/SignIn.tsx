@@ -4,7 +4,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Card from '../components/Card';
+import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import { useStore } from '../store/useStore';
+import { avatarOptions } from '../data/mockData';
 import logo from '../images/logo.jpeg';
 import backgroundImg from '../images/background.JPG';
 
@@ -13,6 +15,8 @@ export default function SignIn() {
   const login = useStore((state) => state.login);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [selectedAvatar, setSelectedAvatar] = useState(avatarOptions[0]);
+  const [uploadedImage, setUploadedImage] = useState<string>();
   const [errors, setErrors] = useState({ email: '', password: '' });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -30,7 +34,7 @@ export default function SignIn() {
     login({
       id: '1',
       username: email.split('@')[0],
-      avatar: '👑',
+      avatar: uploadedImage || selectedAvatar,
       balance: 25000,
       level: 15,
     });
@@ -84,6 +88,13 @@ export default function SignIn() {
 
         <Card hover={false} glow>
           <form onSubmit={handleSubmit} className="space-y-6">
+            <ProfilePictureSelector
+              selectedAvatar={selectedAvatar}
+              onAvatarChange={setSelectedAvatar}
+              uploadedImage={uploadedImage}
+              onImageUpload={setUploadedImage}
+            />
+
             <Input
               label="Email"
               type="email"

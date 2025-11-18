@@ -4,9 +4,11 @@ import { useNavigate, Link } from 'react-router-dom';
 import Button from '../components/Button';
 import Input from '../components/Input';
 import Card from '../components/Card';
+import ProfilePictureSelector from '../components/ProfilePictureSelector';
 import { useStore } from '../store/useStore';
 import { avatarOptions } from '../data/mockData';
 import logo from '../images/logo.jpeg';
+import backgroundImg from '../images/background.JPG';
 
 export default function SignUp() {
   const navigate = useNavigate();
@@ -18,6 +20,7 @@ export default function SignUp() {
     confirmPassword: '',
   });
   const [selectedAvatar, setSelectedAvatar] = useState(avatarOptions[0]);
+  const [uploadedImage, setUploadedImage] = useState<string>();
   const [errors, setErrors] = useState({
     username: '',
     email: '',
@@ -50,7 +53,7 @@ export default function SignUp() {
     login({
       id: '1',
       username: formData.username,
-      avatar: selectedAvatar,
+      avatar: uploadedImage || selectedAvatar,
       balance: 25000,
       level: 1,
     });
@@ -59,7 +62,19 @@ export default function SignUp() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen flex items-center justify-center px-4 py-12 relative">
+      {/* Background Image with Transparency */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url(${backgroundImg})`,
+          opacity: 0.6,
+        }}
+      />
+      
+      {/* White overlay for better readability */}
+      <div className="absolute inset-0 bg-white/60 backdrop-blur-[1px]" />
+      
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -92,34 +107,12 @@ export default function SignUp() {
 
         <Card hover={false} glow>
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-sm font-bold text-neon-text mb-3">
-                Choose Your Avatar
-              </label>
-              <div className="grid grid-cols-6 gap-3">
-                {avatarOptions.map((avatar) => (
-                  <motion.button
-                    key={avatar}
-                    type="button"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedAvatar(avatar)}
-                    className={`
-                      w-full aspect-square rounded-xl text-3xl
-                      flex items-center justify-center border-4
-                      ${
-                        selectedAvatar === avatar
-                          ? 'bg-tropical-gold/30 border-tropical-gold shadow-chunky-3d'
-                          : 'bg-white border-neon-text hover:border-tropical-gold'
-                      }
-                      transition-all duration-300
-                    `}
-                  >
-                    {avatar}
-                  </motion.button>
-                ))}
-              </div>
-            </div>
+            <ProfilePictureSelector
+              selectedAvatar={selectedAvatar}
+              onAvatarChange={setSelectedAvatar}
+              uploadedImage={uploadedImage}
+              onImageUpload={setUploadedImage}
+            />
 
             <Input
               label="Username"
