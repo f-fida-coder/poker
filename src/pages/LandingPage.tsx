@@ -90,7 +90,30 @@ export default function LandingPage() {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="text-center mb-16 sm:mb-20 md:mb-24 relative"
         >
-          {/* 3D Character - Floating on the right side */}
+          {/* 3D Character - Mobile/Tablet centered behind NEURO POKER heading */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ 
+              opacity: 0.12, 
+              scale: 1,
+              y: [0, -10, 0],
+            }}
+            transition={{
+              opacity: { duration: 1, delay: 0.4 },
+              scale: { duration: 1, delay: 0.4 },
+              y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
+            }}
+            className="lg:hidden absolute left-[20%] top-[50%] -translate-x-1/2 -translate-y-1/2 w-80 sm:w-96 md:w-[28rem] pointer-events-none"
+            style={{ zIndex: 0 }}
+          >
+            <img 
+              src={character3d} 
+              alt="Poker Character" 
+              className="w-full h-auto"
+            />
+          </motion.div>
+
+          {/* 3D Character - Desktop version (floating on the right side) */}
           <motion.div
             initial={{ opacity: 0, x: 100, rotate: -10 }}
             animate={{ 
@@ -119,7 +142,7 @@ export default function LandingPage() {
           </motion.div>
 
           <motion.h1 
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-black mb-6 sm:mb-8"
+            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-display font-black mb-6 sm:mb-8 relative z-10"
             style={{ 
               color: '#e29802',
               textShadow: '3px 3px 6px rgba(0,0,0,0.2), 0 0 40px rgba(226, 152, 2, 0.3)'
@@ -132,7 +155,7 @@ export default function LandingPage() {
           </motion.h1>
           
           <motion.h2 
-            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 sm:mb-10"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-display font-bold mb-8 sm:mb-10 relative z-10"
             style={{ 
               color: '#1b6831',
               textShadow: '2px 2px 4px rgba(0,0,0,0.15)'
@@ -145,7 +168,7 @@ export default function LandingPage() {
           </motion.h2>
           
           <motion.p 
-            className="text-lg sm:text-xl md:text-2xl font-semibold max-w-3xl mx-auto px-4 leading-relaxed mb-12"
+            className="text-lg sm:text-xl md:text-2xl font-semibold max-w-3xl mx-auto px-4 leading-relaxed mb-12 relative z-10"
             style={{ color: '#1e6884' }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -159,7 +182,7 @@ export default function LandingPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 1 }}
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-stretch sm:items-center px-4"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-stretch sm:items-center px-4 relative z-10"
           >
             <motion.button
               whileHover={{ scale: 1.08, y: -4 }}
