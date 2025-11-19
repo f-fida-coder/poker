@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import PlayingCard from './PlayingCard';
 
 interface PlayerSeatProps {
   player: {
@@ -7,6 +8,7 @@ interface PlayerSeatProps {
     score: number;
     status: 'active' | 'waiting' | 'passed' | 'sitting-out' | 'winner';
     isDealer?: boolean;
+    cards?: string[];
   } | null;
   isActive?: boolean;
 }
@@ -51,33 +53,13 @@ export default function PlayerSeat({ player, isActive }: PlayerSeatProps) {
         </motion.div>
       )}
 
-      {/* Player Cards (above avatar) */}
-      <div className="absolute -top-8 sm:-top-12 left-1/2 transform -translate-x-1/2 flex gap-1 z-5">
-        <motion.div 
-          initial={{ rotateY: 180, x: -20 }}
-          animate={{ rotateY: 0, x: 0 }}
-          className="w-8 h-12 sm:w-10 sm:h-14 rounded-lg shadow-lg"
-          style={{
-            background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)',
-            border: '2px solid #1e293b',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.4)'
-          }}
-        >
-          <div className="w-full h-full flex items-center justify-center text-white text-xs">🃏</div>
-        </motion.div>
-        <motion.div 
-          initial={{ rotateY: 180, x: 20 }}
-          animate={{ rotateY: 0, x: 0 }}
-          transition={{ delay: 0.1 }}
-          className="w-8 h-12 sm:w-10 sm:h-14 rounded-lg shadow-lg"
-          style={{
-            background: 'linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)',
-            border: '2px solid #1e293b',
-            boxShadow: '0 4px 8px rgba(0, 0, 0, 0.4)'
-          }}
-        >
-          <div className="w-full h-full flex items-center justify-center text-white text-xs">🃏</div>
-        </motion.div>
+      {/* Player Cards (above avatar) - Professional visible cards */}
+      <div className="absolute -top-10 sm:-top-14 left-1/2 transform -translate-x-1/2 flex gap-1 sm:gap-1.5 z-5">
+        {player.cards && player.cards.map((card, idx) => (
+          <div key={idx} className="transform" style={{ marginLeft: idx > 0 ? '-8px' : '0' }}>
+            <PlayingCard card={card} delay={idx * 0.1} />
+          </div>
+        ))}
       </div>
 
       {/* Player Avatar */}

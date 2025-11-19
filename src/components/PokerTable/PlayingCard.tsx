@@ -35,22 +35,37 @@ export default function PlayingCard({ card, faceDown = false, delay = 0 }: Playi
     <motion.div
       initial={{ rotateY: 180, scale: 0 }}
       animate={{ rotateY: 0, scale: 1 }}
-      whileHover={{ scale: 1.05, y: -5 }}
+      whileHover={{ scale: 1.1, y: -8 }}
       transition={{ delay, duration: 0.5 }}
-      className="w-14 h-20 sm:w-16 sm:h-24 rounded-xl bg-gradient-to-br from-white to-gray-50 flex flex-col items-center justify-between p-2 sm:p-3 shadow-2xl border-2 border-gray-300"
+      className="w-16 h-24 sm:w-20 sm:h-28 rounded-xl bg-white flex flex-col items-center justify-between p-2 sm:p-3 shadow-2xl border-3 border-gray-800"
       style={{ 
         transformStyle: 'preserve-3d',
-        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.3), inset 0 1px 3px rgba(255, 255, 255, 0.8)'
+        boxShadow: '0 12px 35px rgba(0, 0, 0, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.9), 0 0 0 1px rgba(0, 0, 0, 0.1)'
       }}
     >
-      <div className={`text-lg sm:text-xl font-bold ${isRed ? 'text-red-600' : 'text-gray-900'}`}>
-        {rank}
+      {/* Top corner */}
+      <div className="flex flex-col items-center -mt-1">
+        <div className={`text-xl sm:text-2xl font-black leading-none ${isRed ? 'text-red-600' : 'text-gray-900'}`}>
+          {rank}
+        </div>
+        <div className={`text-base sm:text-lg leading-none -mt-1 ${isRed ? 'text-red-600' : 'text-gray-900'}`}>
+          {suitSymbol}
+        </div>
       </div>
-      <div className={`text-2xl sm:text-3xl ${isRed ? 'text-red-600' : 'text-gray-900'}`}>
+      
+      {/* Center suit */}
+      <div className={`text-4xl sm:text-5xl ${isRed ? 'text-red-600' : 'text-gray-900'}`}>
         {suitSymbol}
       </div>
-      <div className={`text-lg sm:text-xl font-bold ${isRed ? 'text-red-600' : 'text-gray-900'} rotate-180`}>
-        {rank}
+      
+      {/* Bottom corner (rotated) */}
+      <div className="flex flex-col items-center rotate-180 -mb-1">
+        <div className={`text-xl sm:text-2xl font-black leading-none ${isRed ? 'text-red-600' : 'text-gray-900'}`}>
+          {rank}
+        </div>
+        <div className={`text-base sm:text-lg leading-none -mt-1 ${isRed ? 'text-red-600' : 'text-gray-900'}`}>
+          {suitSymbol}
+        </div>
       </div>
     </motion.div>
   );

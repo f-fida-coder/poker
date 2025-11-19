@@ -21,10 +21,10 @@ export default function PokerTable() {
   const [communityCards, setCommunityCards] = useState<string[]>([]);
   const [currentPlayerIndex, setCurrentPlayerIndex] = useState(0);
   const [gamePhase, setGamePhase] = useState<'waiting' | 'dealing' | 'playing' | 'showdown'>('waiting');
-  const [players, setPlayers] = useState(mockPlayers);
-  const [pot, setPot] = useState(5000);
-  const [currentBet, setCurrentBet] = useState(200);
-  const [betAmount, setBetAmount] = useState(200);
+  const [players, setPlayers] = useState(mockPlayers.map(p => ({
+    ...p,
+    cards: ['As', 'Kh'] // Each player gets 2 cards
+  })));
 
   // Sync sound effects with global sound setting
   useEffect(() => {
@@ -42,40 +42,19 @@ export default function PokerTable() {
     { top: '70%', left: '20%' },
   ];
 
-  const handleAction = (action: string, amount?: number) => {
-    console.log(`Action: ${action}`, amount);
+  const handleAction = (action: string) => {
     soundEffects.playClick();
     
-    if (action === 'fold' || action === 'pass') {
+    if (action === 'fold') {
       soundEffects.playError();
       setPlayers(prev => prev.map((p, idx) => 
         idx === currentPlayerIndex ? { ...p, status: 'passed' as const } : p
       ));
       nextPlayer();
-    } else if (action === 'call') {
-      soundEffects.playChip();
-      const callAmount = currentBet;
-      setPot(prev => prev + callAmount);
-      setPlayers(prev => prev.map((p, idx) => 
-        idx === currentPlayerIndex ? { ...p, score: p.score - callAmount } : p
-      ));
-      nextPlayer();
-    } else if (action === 'raise') {
-      soundEffects.playChip();
-      const raiseAmount = amount || betAmount;
-      setPot(prev => prev + raiseAmount);
-      setCurrentBet(raiseAmount);
-      setPlayers(prev => prev.map((p, idx) => 
-        idx === currentPlayerIndex ? { ...p, score: p.score - raiseAmount } : p
-      ));
-      nextPlayer();
     } else if (action === 'check') {
       soundEffects.playClick();
       nextPlayer();
-    } else if (action === 'ready') {
-      soundEffects.playChip();
-      nextPlayer();
-    } else if (action === 'play') {
+    } else if (action === 'deal') {
       soundEffects.playCard();
       if (gamePhase === 'waiting') {
         dealFlop();
@@ -84,10 +63,6 @@ export default function PokerTable() {
       } else if (communityCards.length === 4) {
         dealRiver();
       }
-      nextPlayer();
-    } else if (action === 'show') {
-      soundEffects.playTurn();
-      setGamePhase('showdown');
     }
   };
 
@@ -123,11 +98,12 @@ export default function PokerTable() {
     setRoundNumber(prev => prev + 1);
     setGamePhase('waiting');
     setCurrentPlayerIndex(0);
-    setPot(0);
-    setCurrentBet(200);
-    setBetAmount(200);
-    // Reset all players to active
-    setPlayers(mockPlayers.map(p => ({ ...p, status: 'active' as const })));
+    // Reset all players to active with new cards
+    setPlayers(mockPlayers.map(p => ({ 
+      ...p, 
+      status: 'active' as const,
+      cards: ['As', 'Kh'] // New hand
+    })));
   };
 
   return (
@@ -303,37 +279,10 @@ export default function PokerTable() {
                   boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4), inset 0 -3px 8px rgba(0, 0, 0, 0.3), inset 0 2px 8px rgba(255, 215, 0, 0.3)'
                 }}
               >
-                <p className="text-xs text-amber-100 font-bold">POT: {pot.toLocaleString()} K</p>
+                <p className="text-sm sm:text-base font-bold text-amber-100">Texas Hold'em</p>
+                <p className="text-xs text-amber-200">Round #{roundNumber}</p>
               </div>
             </motion.div>
-
-            {/* Chip Stack Visualization in Center */}
-            <div className="mb-4 flex justify-center items-end gap-1" style={{ height: '60px' }}>
-              {pot > 0 && (
-                <motion.div 
-                  initial={{ scale: 0, y: 20 }}
-                  animate={{ scale: 1, y: 0 }}
-                  className="flex flex-col items-center gap-0.5"
-                >
-                  {/* Poker chips stack */}
-                  {[...Array(Math.min(8, Math.ceil(pot / 1000)))].map((_, i) => (
-                    <motion.div
-                      key={i}
-                      initial={{ scale: 0, y: 20 }}
-                      animate={{ scale: 1, y: 0 }}
-                      transition={{ delay: i * 0.05 }}
-                      className="w-10 h-3 rounded-full border-2 border-white/50"
-                      style={{
-                        background: i % 3 === 0 ? 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)' : 
-                                   i % 3 === 1 ? 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)' : 
-                                   'linear-gradient(135deg, #10B981 0%, #059669 100%)',
-                        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(255, 255, 255, 0.3)'
-                      }}
-                    />
-                  ))}
-                </motion.div>
-              )}
-            </div>
 
             {/* Community Cards */}
             <div className="flex gap-2 sm:gap-3 justify-center flex-wrap">
@@ -360,10 +309,8 @@ export default function PokerTable() {
       <ActionPanel
         onFold={() => handleAction('fold')}
         onCheck={() => handleAction('check')}
-        onCall={() => handleAction('call')}
-        onRaise={(amount) => handleAction('raise', amount)}
-        currentBet={currentBet}
-        pot={pot}
+        onDeal={() => handleAction('deal')}
+        communityCardsCount={communityCards.length}
       />
 
       <ChatPanel isOpen={isChatOpen} onClose={() => setIsChatOpen(false)} />
