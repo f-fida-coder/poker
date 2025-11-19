@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { soundEffects } from '../../utils/soundEffects';
 
 interface ActionPanelProps {
   onFold: () => void;
@@ -21,6 +22,21 @@ export default function ActionPanel({
     return '🎴 Deal';
   };
 
+  const handleFold = () => {
+    soundEffects.playError();
+    onFold();
+  };
+
+  const handleCheck = () => {
+    soundEffects.playClick();
+    onCheck();
+  };
+
+  const handleDeal = () => {
+    soundEffects.playCard();
+    onDeal();
+  };
+
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
@@ -40,7 +56,7 @@ export default function ActionPanel({
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              onClick={onFold}
+              onClick={handleFold}
               className="px-6 py-4 rounded-2xl bg-gradient-to-br from-red-700 to-red-900 text-white font-bold text-base sm:text-lg border-3 border-red-950 shadow-lg hover:shadow-xl transition-all"
               style={{
                 boxShadow: '0 6px 16px rgba(127, 29, 29, 0.6)'
@@ -52,7 +68,7 @@ export default function ActionPanel({
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              onClick={onCheck}
+              onClick={handleCheck}
               className="px-6 py-4 rounded-2xl bg-gradient-to-br from-blue-600 to-blue-800 text-white font-bold text-base sm:text-lg border-3 border-blue-950 shadow-lg hover:shadow-xl transition-all"
               style={{
                 boxShadow: '0 6px 16px rgba(30, 64, 175, 0.6)'
@@ -64,7 +80,7 @@ export default function ActionPanel({
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              onClick={onDeal}
+              onClick={handleDeal}
               className="px-6 py-4 rounded-2xl bg-gradient-to-br from-green-600 to-green-800 text-white font-bold text-base sm:text-lg border-3 border-green-950 shadow-lg hover:shadow-xl transition-all"
               style={{
                 boxShadow: '0 6px 16px rgba(22, 101, 52, 0.6)'

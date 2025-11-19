@@ -108,43 +108,104 @@ export default function PokerTable() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      {/* Beach Background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-sky-300 via-sky-200 to-amber-100" />
-      
-      {/* Beach Sand Pattern */}
+      {/* Background Image */}
       <div 
-        className="absolute inset-0 opacity-30"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: "url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23d4a373' fill-opacity='0.4'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3Ccircle cx='10' cy='50' r='1.5'/%3E%3Ccircle cx='50' cy='10' r='1.5'/%3E%3C/g%3E%3C/svg%3E\")",
+          backgroundImage: `url(${backgroundImg})`,
         }}
       />
+      
+      {/* Overlay for better table visibility */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-black/10 to-black/30" />
       
       <div className="relative z-10">
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center z-10">
         <div className="flex gap-2">
-          <Button variant="ghost" onClick={() => navigate('/lobby')} size="sm">
-            <LogOut className="w-4 h-4 mr-2" />
-            Leave
-          </Button>
-          <Button variant="ghost" size="sm">
-            <Users className="w-4 h-4 mr-2" />
-            Players ({players.filter(p => p.status !== 'sitting-out').length}/{seatPositions.length})
-          </Button>
-          <Button variant="primary" onClick={startNewRound} size="sm">
-            🔄 New Round
-          </Button>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button variant="ghost" onClick={() => navigate('/lobby')} size="sm">
+              <LogOut className="w-4 h-4 mr-2" />
+              🚪 Leave
+            </Button>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <div className="px-4 py-2 bg-gradient-to-r from-amber-800/90 to-amber-700/90 backdrop-blur-md rounded-xl border-2 border-amber-600 shadow-lg">
+              <div className="flex items-center gap-2">
+                <Users className="w-4 h-4 text-amber-200" />
+                <span className="text-sm font-bold text-amber-100">
+                  👥 {players.filter(p => p.status !== 'sitting-out').length}/{seatPositions.length} Players
+                </span>
+              </div>
+            </div>
+          </motion.div>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button variant="primary" onClick={startNewRound} size="sm">
+              🔄 New Round
+            </Button>
+          </motion.div>
         </div>
 
         <div className="flex gap-2">
-          <Button variant="ghost" onClick={toggleSound} size="sm">
-            {soundEnabled ? <Volume2 className="w-4 h-4" /> : <VolumeX className="w-4 h-4" />}
-          </Button>
-          <Button variant="ghost" onClick={() => setIsChatOpen(!isChatOpen)} size="sm">
-            <MessageCircle className="w-4 h-4" />
-          </Button>
-          <Button variant="ghost" size="sm">
-            <Settings className="w-4 h-4" />
-          </Button>
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <button
+              onClick={toggleSound}
+              className="px-4 py-2 bg-gradient-to-br from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 rounded-xl border-2 border-purple-900 shadow-lg transition-all"
+              style={{
+                boxShadow: soundEnabled 
+                  ? '0 4px 12px rgba(147, 51, 234, 0.5)' 
+                  : '0 2px 8px rgba(107, 114, 128, 0.5)'
+              }}
+            >
+              <div className="flex items-center gap-2">
+                {soundEnabled ? (
+                  <>
+                    <Volume2 className="w-4 h-4 text-white" />
+                    <span className="text-sm font-bold text-white">🔊 Sound ON</span>
+                  </>
+                ) : (
+                  <>
+                    <VolumeX className="w-4 h-4 text-white" />
+                    <span className="text-sm font-bold text-white">🔇 Sound OFF</span>
+                  </>
+                )}
+              </div>
+            </button>
+          </motion.div>
+          
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <button
+              onClick={() => {
+                soundEffects.playClick();
+                setIsChatOpen(!isChatOpen);
+              }}
+              className="px-4 py-2 bg-gradient-to-br from-pink-600 to-rose-800 hover:from-pink-500 hover:to-rose-700 rounded-xl border-2 border-rose-900 shadow-lg transition-all"
+              style={{
+                boxShadow: isChatOpen 
+                  ? '0 4px 12px rgba(244, 63, 94, 0.5)' 
+                  : '0 2px 8px rgba(107, 114, 128, 0.5)'
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <MessageCircle className="w-4 h-4 text-white" />
+                <span className="text-sm font-bold text-white">💬 Chat</span>
+              </div>
+            </button>
+          </motion.div>
+          
+          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
+            <button
+              onClick={() => soundEffects.playClick()}
+              className="px-4 py-2 bg-gradient-to-br from-teal-600 to-cyan-800 hover:from-teal-500 hover:to-cyan-700 rounded-xl border-2 border-cyan-900 shadow-lg transition-all"
+              style={{
+                boxShadow: '0 4px 12px rgba(20, 184, 166, 0.4)'
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <Settings className="w-4 h-4 text-white" />
+                <span className="text-sm font-bold text-white">⚙️ Settings</span>
+              </div>
+            </button>
+          </motion.div>
         </div>
       </div>
 
