@@ -103,7 +103,7 @@ export default function LandingPage() {
               scale: { duration: 1, delay: 0.4 },
               y: { duration: 4, repeat: Infinity, ease: "easeInOut" }
             }}
-            className="lg:hidden absolute left-[20%] top-[50%] -translate-x-1/2 -translate-y-1/2 w-80 sm:w-96 md:w-[28rem] pointer-events-none"
+            className="lg:hidden absolute left-[20%] top-[50%] -translate-x-1/2 -translate-y-1/2 w-56 sm:w-64 md:w-72 pointer-events-none"
             style={{ zIndex: 0 }}
           >
             <img 
@@ -128,7 +128,7 @@ export default function LandingPage() {
               y: { duration: 4, repeat: Infinity, ease: "easeInOut" },
               rotate: { duration: 6, repeat: Infinity, ease: "easeInOut" }
             }}
-            className="hidden lg:block absolute -right-8 xl:-right-16 top-0 w-64 xl:w-80 z-20"
+            className="hidden lg:block absolute -right-8 xl:-right-16 top-0 w-48 xl:w-56 z-20"
             whileHover={{ scale: 1.1, rotate: 0 }}
           >
             <img 
